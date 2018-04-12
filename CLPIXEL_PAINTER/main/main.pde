@@ -49,47 +49,45 @@ void setup() {
 
  cp5 = new ControlP5(this);
  cp5.addButton("pencil")
-   .setPosition(10, toolboxY)
+   .setPosition(15, toolboxY-6)
     .setImage(loadImage("icons/pencil.png"))
    .updateSize()
    ;
  cp5.addButton("erase")
-   .setPosition(40, toolboxY)
+   .setPosition(50, toolboxY-6)
    .setImage(loadImage("icons/eraser.png"))
    .updateSize()
    ;  
  cp5.addButton("clear")
-   .setPosition(10,toolboxY+92)
+   .setPosition(15,toolboxY+92)
    .setImage(loadImage("icons/clear.png"))
    .updateSize()
    ;  
   cp5.addButton("circle")
    .setImage(loadImage("icons/circle.png"))
-   .setPosition(10, toolboxY+60)
+   .setPosition(15, toolboxY+60)
    .updateSize()
    ;
   cp5.addButton("rectangle")
-   .setPosition(10, toolboxY+30)
+   .setPosition(15, toolboxY+28)
    .setImage(loadImage("icons/rect.png"))
    .updateSize();
    ;
   cp5.addButton("line")
-   .setPosition(40, toolboxY+30)
+   .setPosition(50, toolboxY+28)
    .setImage(loadImage("icons/line.png"))
    .updateSize();
    ;
   cp5.addButton("droplet")
-   .setPosition(40, toolboxY+60)
+   .setPosition(50, toolboxY+60)
    .setImage(loadImage("icons/dropper.png"))
    .updateSize();
    ;
- 
  cp5.addButton("saveImg")
-  .setPosition(40, toolboxY+92)
+  .setPosition(50, toolboxY+92)
   .setImage(loadImage("icons/save.png"))
   .updateSize();
   ; 
-   
  cp5.addSlider("thickness")
    .setPosition(5, toolboxY+160)
    .setSize(60, 19)
@@ -319,6 +317,16 @@ void draw() {
 
  buffer.fill(r2,g2,b2);
  buffer.rect(125,115,30,30);
+
+ buffer.fill(255);
+ buffer.rect(13,295,28,28,5); //clear
+ buffer.rect(47,295,28,28,5); //save
+ buffer.rect(13,262,28,28,5); //circle
+ buffer.rect(47,262,28,28,5); //dropper
+ buffer.rect(13,229,28,28,5); //rect
+ buffer.rect(47,229,28,28,5); //line
+ buffer.rect(13,196,28,28,5); //pencil
+ buffer.rect(47,196,28,28,5); //eraser
 
  rectMode(CORNERS);
  buffer.endDraw();
