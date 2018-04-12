@@ -34,9 +34,6 @@ void setup() {
  buffer.beginDraw();
  buffer.background(r2,g2,b2); //white by default
 
- buffer.fill(0,0,204);
- buffer.noStroke();
- buffer.rect(0,0,160,1000);
  buffer.fill(255);
  buffer.textSize(10);
  buffer.text("COLOR 1", 5,10);
@@ -46,41 +43,53 @@ void setup() {
  rectMode(CORNERS);
 
  buffer.strokeWeight(3);
-
-
- buffer.background(255); // getting rid of this creates problems, but keeping it makes
+ buffer.background(255); 
 
  buffer.endDraw();
 
  cp5 = new ControlP5(this);
  cp5.addButton("pencil")
-   .setPosition(5, toolboxY+20)
-   .setSize(60, 19)
+   .setPosition(10, toolboxY)
+    .setImage(loadImage("icons/pencil.png"))
+   .updateSize()
    ;
  cp5.addButton("erase")
-   .setPosition(5, toolboxY + 40)
-   .setSize(60, 19)
+   .setPosition(40, toolboxY)
+   .setImage(loadImage("icons/eraser.png"))
+   .updateSize()
    ;  
  cp5.addButton("clear")
-   .setPosition(5,toolboxY+60)
-   .setSize(60, 19)
+   .setPosition(10,toolboxY+92)
+   .setImage(loadImage("icons/clear.png"))
+   .updateSize()
    ;  
   cp5.addButton("circle")
-   .setPosition(5, toolboxY+120)
-   .setSize(60, 19)
+   .setImage(loadImage("icons/circle.png"))
+   .setPosition(10, toolboxY+60)
+   .updateSize()
    ;
   cp5.addButton("rectangle")
-   .setPosition(5, toolboxY+100)
-   .setSize(60, 19)
+   .setPosition(10, toolboxY+30)
+   .setImage(loadImage("icons/rect.png"))
+   .updateSize();
    ;
   cp5.addButton("line")
-   .setPosition(5, toolboxY+80)
-   .setSize(60, 19)
+   .setPosition(40, toolboxY+30)
+   .setImage(loadImage("icons/line.png"))
+   .updateSize();
    ;
   cp5.addButton("droplet")
-   .setPosition(5, toolboxY+140)
-   .setSize(60, 19)
+   .setPosition(40, toolboxY+60)
+   .setImage(loadImage("icons/dropper.png"))
+   .updateSize();
    ;
+ 
+ cp5.addButton("saveImg")
+  .setPosition(40, toolboxY+92)
+  .setImage(loadImage("icons/save.png"))
+  .updateSize();
+  ; 
+   
  cp5.addSlider("thickness")
    .setPosition(5, toolboxY+160)
    .setSize(60, 19)
@@ -94,13 +103,13 @@ void setup() {
    .setValue(100)
    ;
  cp5.addSlider("green1")
-   .setPosition(5, toolboxY-170)
+   .setPosition(5, toolboxY-174)
    .setSize(60, 15)
    .setRange(0, 255)
    .setValue(100)
    ;
  cp5.addSlider("blue1")
-   .setPosition(5, toolboxY-150)
+   .setPosition(5, toolboxY-158)
    .setSize(60,15)
    .setRange(0, 255)
    .setValue(100)
@@ -114,21 +123,18 @@ void setup() {
    ;
    
  cp5.addSlider("green2")
-   .setPosition(5, toolboxY-80)
+   .setPosition(5, toolboxY-84)
    .setSize(60, 15)
    .setRange(0, 255)
    .setValue(255)
    ;
  cp5.addSlider("blue2")
-   .setPosition(5, toolboxY-60)
+   .setPosition(5, toolboxY-68)
    .setSize(60, 15)
    .setRange(0, 255)
    .setValue(255)
    ; 
- cp5.addButton("saveImg")
-   .setPosition(5, toolboxY+250)
-   .setSize(60, 19)
-   ; 
+
 }
 
 
@@ -295,9 +301,9 @@ void draw() {
  buffer.stroke(c);
  
  buffer.rectMode(CORNER);
- buffer.fill(0,0,204);
+ buffer.fill(0,0,244); //drawing blue toolbar
  buffer.noStroke();
- buffer.rect(0,0,160,1000);
+ buffer.rect(0,0,160,1000); // blue toolbar
  
  if (mouseX > 160) {
    buffer.rect(10,510,60,30);
