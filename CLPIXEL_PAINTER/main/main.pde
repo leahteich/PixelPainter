@@ -1,7 +1,7 @@
 import controlP5.*;
-PGraphics buffer;
+PGraphics buffer; 
 
-int x;
+int x; 
 int y;
 
 boolean circleCreateNow = false;
@@ -11,13 +11,13 @@ boolean colorSelectNow = false;
 
 ControlP5 cp5; //declaring it up here makes it global
 
-int state = 0; //start on floor 1
+int state = 0; //start on nothing
 int r1 = 100; 
-int g1 = 100;
+int g1 = 100; //color 1 settings
 int b1 = 100;
 
 int r2 = 255;
-int g2 = 255;
+int g2 = 255; //color2 settings 
 int b2 = 255;
 
 int strokesize = 3;
@@ -26,7 +26,7 @@ color c;
 
 void setup() {
 
- size(1000, 600);
+ size(1100, 700);
  
  ellipseMode(CORNERS);
  rectMode(CORNERS);
@@ -144,11 +144,11 @@ void setup() {
 
 void mouseDragged() {
 
-  if (state == 7) {
+  if (mouseX > 160 && state == 7) {
     float sprayx;
     float sprayy;
     float sd = strokesize;
-    for (int m = 0; m<60; m++) {
+    for (int m = 0; m<100; m++) {
         sprayx=randomGaussian(); 
         sprayy=randomGaussian(); 
         sprayx = sprayx * sd; 
@@ -365,7 +365,7 @@ void draw() {
 
  rectMode(CORNERS);
  buffer.endDraw();
- if (mousePressed && circleCreateNow) {
+ if (mousePressed && circleCreateNow && mouseX > 160) {
     strokeWeight(strokesize);
     stroke(r1,g1,b1);
     fill(r2,g2,b2);
@@ -373,13 +373,13 @@ void draw() {
  }
  
 
- if (mousePressed && lineCreateNow) {
+ if (mousePressed && lineCreateNow && mouseX > 160) {
    strokeWeight(strokesize);
    stroke(r1,g1,b1);
    line(x,y,mouseX,mouseY);
  }
  
-  if (mousePressed && rectCreateNow) {
+  if (mousePressed && rectCreateNow && mouseX > 160) {
     rectMode(CORNERS);
     stroke(r1,g1,b1);
     fill(r2,g2,b2);
@@ -399,11 +399,11 @@ void draw() {
     cursor(ARROW);
   }
   
-   if (mouseX > 0 && mouseX < 160 && mouseY > 0 && mouseY < 170) {
-     if (mousePressed) {
+   //if (mouseX > 0 && mouseX < 160 && mouseY > 0 && mouseY < 170) {
+     //if (mousePressed) {
    //  getColor();
-   }
- }
+//   }
+// }
 }
 
 void mousePressed() {
@@ -462,12 +462,11 @@ void mouseReleased() {
     buffer.beginDraw();
     buffer.stroke(r1,g1,b1);
     buffer.strokeWeight(strokesize);
-   
+  
     if (mouseX > 160) {
       buffer.line(x, y, mouseX, mouseY);
     }
   }
-  
   buffer.endDraw();
  }
 
@@ -476,10 +475,13 @@ void clear() { //doesn't work
    buffer.noStroke();
    
    buffer.fill(r2, g2, b2);
-   ///fill(255);
    buffer.rect(160,0,1000, 1000);
    buffer.endDraw();
    }
+
+
+
+
 /*
 color getColor() {
  color c = get(mouseX, mouseY);
