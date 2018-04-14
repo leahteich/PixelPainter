@@ -383,6 +383,7 @@ void mousePressed() {
      println("Color 1("+r1+","+g1+","+b1+")");
      buffer.fill(r1,g1,b1);
     }
+    
    if (colorSelectNow && mouseButton == RIGHT ) {
      c = get(mouseX, mouseY);
      r2=(c>>16)&255;
@@ -391,7 +392,7 @@ void mousePressed() {
      println("Color 2 ("+r2+","+g2+","+b2+")");
      buffer.fill(r2,g2,b2);
     }
- }
+  }
 }
 
 void mouseReleased() {
@@ -427,13 +428,10 @@ void mouseReleased() {
     if (mouseX > 160) {
       buffer.line(x, y, mouseX, mouseY);
     }
-    
   }
   
   buffer.endDraw();
-
  }
-
 
 void clear() { //doesn't work
    buffer.beginDraw();
