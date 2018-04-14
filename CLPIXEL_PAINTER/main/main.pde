@@ -88,6 +88,11 @@ void setup() {
   .setImage(loadImage("icons/save.png"))
   .updateSize();
   ; 
+ cp5.addButton("spraypaint")
+  .setPosition(90, toolboxY-6)
+  .setSize(40,20);
+
+  ; 
  cp5.addSlider("thickness")
    .setPosition(5, toolboxY+160)
    .setSize(60, 19)
@@ -138,6 +143,22 @@ void setup() {
 
 void mouseDragged() {
 
+  if (state == 7) {
+    float sprayx;
+    float sprayy;
+    float sd = strokesize;
+    for (int m = 0; m<60; m++) {
+        sprayx=randomGaussian(); 
+        sprayy=randomGaussian(); 
+        sprayx = sprayx * sd; 
+        sprayy = sprayy * sd;
+        buffer.beginDraw();
+        buffer.stroke(r1,g1,b1); 
+        buffer.point(mouseX+sprayx, mouseY+sprayy);
+      }
+      buffer.endDraw();
+ }
+ 
  if (mouseButton == LEFT) { 
    buffer.beginDraw();
 
@@ -224,6 +245,18 @@ void erase() {
  colorSelectNow = false;
 
  buffer.endDraw();
+}
+
+void spraypaint() {
+  buffer.beginDraw();
+  state = 7;
+  lineCreateNow = false;
+  circleCreateNow = false;
+  rectCreateNow = false;
+  colorSelectNow = false;
+
+  buffer.stroke(r1,g1,b1);
+  buffer.endDraw();
 }
 
 void droplet() {
@@ -336,6 +369,7 @@ void draw() {
     fill(r2,g2,b2);
     ellipse(x,y,mouseX, mouseY);
  }
+ 
 
  if (mousePressed && lineCreateNow) {
    strokeWeight(strokesize);
@@ -374,7 +408,9 @@ void mousePressed() {
  x = mouseX;
  y = mouseY;
  
+ 
  if (mouseX > 160) {
+   
    if (colorSelectNow && mouseButton == LEFT ) {
      c = get(mouseX, mouseY);
      r1=(c>>16)&255;
