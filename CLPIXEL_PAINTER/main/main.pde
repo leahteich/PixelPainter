@@ -58,6 +58,11 @@ void setup() {
    .setImage(loadImage("icons/eraser.png"))
    .updateSize()
    ;  
+ cp5.addButton("spraypaint")
+  .setPosition(85, toolboxY-6)
+  .setImage(loadImage("icons/spray.png"))
+  .updateSize()
+  ; 
  cp5.addButton("clear")
    .setPosition(15,toolboxY+92)
    .setImage(loadImage("icons/clear.png"))
@@ -88,11 +93,7 @@ void setup() {
   .setImage(loadImage("icons/save.png"))
   .updateSize();
   ; 
- cp5.addButton("spraypaint")
-  .setPosition(90, toolboxY-6)
-  .setSize(40,20);
 
-  ; 
  cp5.addSlider("thickness")
    .setPosition(5, toolboxY+160)
    .setSize(60, 19)
@@ -360,6 +361,7 @@ void draw() {
  buffer.rect(47,229,28,28,5); //line
  buffer.rect(13,196,28,28,5); //pencil
  buffer.rect(47,196,28,28,5); //eraser
+ buffer.rect(81,196,28,28,5); //spraypaint
 
  rectMode(CORNERS);
  buffer.endDraw();
