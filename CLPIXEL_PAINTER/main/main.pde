@@ -1,6 +1,6 @@
 import controlP5.*;
 PGraphics buffer; 
-
+//this is a comment
 int x; 
 int y;
 
