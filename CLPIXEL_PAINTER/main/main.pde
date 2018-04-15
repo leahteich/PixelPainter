@@ -32,137 +32,136 @@ int sizeFont = 20;
 
 void setup() {
 
- size(1100, 700);
- 
- ellipseMode(CORNERS);
- rectMode(CORNERS);
- buffer = createGraphics(width, height); 
- buffer.beginDraw();
- buffer.background(r2,g2,b2); //white by default
+  size(1100, 700);
 
- buffer.fill(255);
- buffer.colorMode(RGB);
- //picker(20,20,0,10);
- rectMode(CORNERS);
+  ellipseMode(CORNERS);
+  rectMode(CORNERS);
+  buffer = createGraphics(width, height); 
+  buffer.beginDraw();
+  buffer.background(r2, g2, b2); //white by default
 
- buffer.strokeWeight(3);
- buffer.background(255); 
+  buffer.fill(255);
+  buffer.colorMode(RGB);
+  //picker(20,20,0,10);
+  rectMode(CORNERS);
 
- buffer.endDraw();
+  buffer.strokeWeight(3);
+  buffer.background(255); 
 
- cp5 = new ControlP5(this);
- cp5.addButton("pencil")
-   .setPosition(15, toolboxY-6)
+  buffer.endDraw();
+
+  cp5 = new ControlP5(this);
+  cp5.addButton("pencil")
+    .setPosition(15, toolboxY-6)
     .setImage(loadImage("icons/pencil.png"))
-   .updateSize()
-   ;
- cp5.addButton("erase")
-   .setPosition(50, toolboxY-6)
-   .setImage(loadImage("icons/eraser.png"))
-   .updateSize()
-   ;  
- cp5.addButton("spraypaint")
-  .setPosition(85, toolboxY-6)
-  .setImage(loadImage("icons/spray.png"))
-  .updateSize()
-  ; 
- cp5.addButton("clear")
-   .setPosition(15,toolboxY+92)
-   .setImage(loadImage("icons/clear.png"))
-   .updateSize()
-   ;  
+    .updateSize()
+    ;
+  cp5.addButton("erase")
+    .setPosition(50, toolboxY-6)
+    .setImage(loadImage("icons/eraser.png"))
+    .updateSize()
+    ;  
+  cp5.addButton("spraypaint")
+    .setPosition(85, toolboxY-6)
+    .setImage(loadImage("icons/spray.png"))
+    .updateSize()
+    ; 
+  cp5.addButton("clear")
+    .setPosition(15, toolboxY+92)
+    .setImage(loadImage("icons/clear.png"))
+    .updateSize()
+    ;  
   cp5.addButton("circle")
-   .setImage(loadImage("icons/circle.png"))
-   .setPosition(15, toolboxY+60)
-   .updateSize()
-   ;
+    .setImage(loadImage("icons/circle.png"))
+    .setPosition(15, toolboxY+60)
+    .updateSize()
+    ;
   cp5.addButton("rectangle")
-   .setPosition(15, toolboxY+28)
-   .setImage(loadImage("icons/rect.png"))
-   .updateSize();
-   ;
+    .setPosition(15, toolboxY+28)
+    .setImage(loadImage("icons/rect.png"))
+    .updateSize();
+  ;
   cp5.addButton("line")
-   .setPosition(50, toolboxY+28)
-   .setImage(loadImage("icons/line.png"))
-   .updateSize();
-   ;
+    .setPosition(50, toolboxY+28)
+    .setImage(loadImage("icons/line.png"))
+    .updateSize();
+  ;
   cp5.addButton("droplet")
-   .setPosition(50, toolboxY+60)
-   .setImage(loadImage("icons/dropper.png"))
-   .updateSize();
-   ;
- cp5.addButton("saveJPG")
-  .setPosition(15, toolboxY+125)
-  .setImage(loadImage("icons/jpg.png"))
-  .updateSize();
+    .setPosition(50, toolboxY+60)
+    .setImage(loadImage("icons/dropper.png"))
+    .updateSize();
+  ;
+  cp5.addButton("saveJPG")
+    .setPosition(15, toolboxY+125)
+    .setImage(loadImage("icons/jpg.png"))
+    .updateSize();
   ; 
   cp5.addButton("savePNG")
-  .setPosition(50, toolboxY+125)
-  .setImage(loadImage("icons/png.png"))
-  .updateSize();
+    .setPosition(50, toolboxY+125)
+    .setImage(loadImage("icons/png.png"))
+    .updateSize();
   ; 
- cp5.addButton("textbox")
-  .setPosition(84, toolboxY+26)
-  .setImage(loadImage("icons/text.png"))
-  .updateSize();
+  cp5.addButton("textbox")
+    .setPosition(84, toolboxY+26)
+    .setImage(loadImage("icons/text.png"))
+    .updateSize();
   ; 
- cp5.addSlider("thickness")
-   .setPosition(5, toolboxY+160)
-   .setSize(60, 19)
-   .setRange(0, 20)
-   .setValue(5)
-   ;
- cp5.addSlider("red1")
-   .setPosition(5, toolboxY-190)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(100)
-   ;
- cp5.addSlider("green1")
-   .setPosition(5, toolboxY-174)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(100)
-   ;
- cp5.addSlider("blue1")
-   .setPosition(5, toolboxY-158)
-   .setSize(60,15)
-   .setRange(0, 255)
-   .setValue(100)
-   ; 
- cp5.addSlider("alpha1")
-   .setPosition(5, toolboxY-142)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(255)
-   ; 
+  cp5.addSlider("thickness")
+    .setPosition(5, toolboxY+160)
+    .setSize(60, 19)
+    .setRange(0, 20)
+    .setValue(5)
+    ;
+  cp5.addSlider("red1")
+    .setPosition(5, toolboxY-190)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(100)
+    ;
+  cp5.addSlider("green1")
+    .setPosition(5, toolboxY-174)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(100)
+    ;
+  cp5.addSlider("blue1")
+    .setPosition(5, toolboxY-158)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(100)
+    ; 
+  cp5.addSlider("alpha1")
+    .setPosition(5, toolboxY-142)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(255)
+    ; 
 
- cp5.addSlider("red2")
-   .setPosition(5, toolboxY-100)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(255)
-   ;
-   
- cp5.addSlider("green2")
-   .setPosition(5, toolboxY-84)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(255)
-   ;
- cp5.addSlider("blue2")
-   .setPosition(5, toolboxY-68)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(255)
-   ; 
- cp5.addSlider("alpha2")
-   .setPosition(5, toolboxY-52)
-   .setSize(60, 15)
-   .setRange(0, 255)
-   .setValue(255)
-   ; 
+  cp5.addSlider("red2")
+    .setPosition(5, toolboxY-100)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(255)
+    ;
 
+  cp5.addSlider("green2")
+    .setPosition(5, toolboxY-84)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(255)
+    ;
+  cp5.addSlider("blue2")
+    .setPosition(5, toolboxY-68)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(255)
+    ; 
+  cp5.addSlider("alpha2")
+    .setPosition(5, toolboxY-52)
+    .setSize(60, 15)
+    .setRange(0, 255)
+    .setValue(255)
+    ;
 }
 
 
@@ -173,103 +172,103 @@ void mouseDragged() {
     float sprayy;
     float sd = strokesize;
     for (int m = 0; m<100; m++) {
-        sprayx=randomGaussian(); 
-        sprayy=randomGaussian(); 
-        sprayx = sprayx * sd; 
-        sprayy = sprayy * sd;
-        buffer.beginDraw();
-        buffer.stroke(r1,g1,b1,alpha1); 
-        buffer.point(mouseX+sprayx, mouseY+sprayy);
-      }
-      buffer.endDraw();
- }
- 
- if (mouseButton == LEFT) { 
-   buffer.beginDraw();
-
-   if (state == 1) {
-     buffer.colorMode(RGB);
-     buffer.stroke(r1,g1,b1,alpha1);
-     buffer.strokeWeight(strokesize);
-  
-     buffer.endDraw();
-   }
-   
-   if (mouseX > 160 && pmouseX > 160 && state == 1) {
-     buffer.beginDraw();
-     buffer.line(pmouseX, pmouseY, mouseX, mouseY);
-     buffer.endDraw();
-   }
-     
-   if (state == 2) {
-     buffer.beginDraw();
-     buffer.stroke(r2,g2,b2,alpha2);
-     buffer.strokeWeight(strokesize);
-     if (mouseX > 160 && pmouseX > 160) {
-        buffer.line(pmouseX, pmouseY, mouseX, mouseY);
-      }
-     buffer.endDraw();
+      sprayx=randomGaussian(); 
+      sprayy=randomGaussian(); 
+      sprayx = sprayx * sd; 
+      sprayy = sprayy * sd;
+      buffer.beginDraw();
+      buffer.stroke(r1, g1, b1, alpha1); 
+      buffer.point(mouseX+sprayx, mouseY+sprayy);
     }
-  }
-   
-  if (state == 1 && mouseButton == RIGHT) {
-    buffer.beginDraw();
-    buffer.stroke(r2,g2,b2,alpha2);
-    buffer.strokeWeight(strokesize);
-    if (mouseX > 160 && pmouseX > 160) {
-       buffer.line(pmouseX, pmouseY, mouseX, mouseY);
-     }
     buffer.endDraw();
   }
-   
- if (state == 3 || circleCreateNow == true) { //circle draw
-   buffer.beginDraw();
-   buffer.stroke(r1,g1,b1,alpha1);
-   buffer.fill(r2,g2,b2,alpha2);
-   buffer.strokeWeight(strokesize);
-   buffer.endDraw();
- } 
- 
- if (rectCreateNow || state == 4) {
-   buffer.beginDraw();
-   buffer.stroke(r1,g1,b1,alpha1);
-   buffer.fill(r2,g2,b2,alpha2);
-   buffer.strokeWeight(strokesize);
-   buffer.endDraw();
- }
- 
- if (lineCreateNow || state == 5) {
-   buffer.beginDraw();
-   buffer.stroke(r1,g1,b1,alpha1);
-   buffer.strokeWeight(strokesize);
-   buffer.endDraw();
- }
+
+  if (mouseButton == LEFT) { 
+    buffer.beginDraw();
+
+    if (state == 1) {
+      buffer.colorMode(RGB);
+      buffer.stroke(r1, g1, b1, alpha1);
+      buffer.strokeWeight(strokesize);
+
+      buffer.endDraw();
+    }
+
+    if (mouseX > 160 && pmouseX > 160 && state == 1) {
+      buffer.beginDraw();
+      buffer.line(pmouseX, pmouseY, mouseX, mouseY);
+      buffer.endDraw();
+    }
+
+    if (state == 2) {
+      buffer.beginDraw();
+      buffer.stroke(r2, g2, b2, alpha2);
+      buffer.strokeWeight(strokesize);
+      if (mouseX > 160 && pmouseX > 160) {
+        buffer.line(pmouseX, pmouseY, mouseX, mouseY);
+      }
+      buffer.endDraw();
+    }
+  }
+
+  if (state == 1 && mouseButton == RIGHT) {
+    buffer.beginDraw();
+    buffer.stroke(r2, g2, b2, alpha2);
+    buffer.strokeWeight(strokesize);
+    if (mouseX > 160 && pmouseX > 160) {
+      buffer.line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+    buffer.endDraw();
+  }
+
+  if (state == 3 || circleCreateNow == true) { //circle draw
+    buffer.beginDraw();
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.fill(r2, g2, b2, alpha2);
+    buffer.strokeWeight(strokesize);
+    buffer.endDraw();
+  } 
+
+  if (rectCreateNow || state == 4) {
+    buffer.beginDraw();
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.fill(r2, g2, b2, alpha2);
+    buffer.strokeWeight(strokesize);
+    buffer.endDraw();
+  }
+
+  if (lineCreateNow || state == 5) {
+    buffer.beginDraw();
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.strokeWeight(strokesize);
+    buffer.endDraw();
+  }
 }
 
 void pencil() {
- buffer.beginDraw();
- buffer.stroke(r1,g1,b1,alpha1);
- state = 1;
- buffer.strokeWeight(strokesize);
- circleCreateNow = false;
- rectCreateNow = false;
- lineCreateNow = false;
- colorSelectNow = false;
+  buffer.beginDraw();
+  buffer.stroke(r1, g1, b1, alpha1);
+  state = 1;
+  buffer.strokeWeight(strokesize);
+  circleCreateNow = false;
+  rectCreateNow = false;
+  lineCreateNow = false;
+  colorSelectNow = false;
 
- buffer.endDraw();
+  buffer.endDraw();
 }
 
 void erase() {
- buffer.beginDraw();
- state = 2;
- buffer.strokeWeight(strokesize);
- buffer.stroke(r2, g2, b2,alpha2);
- circleCreateNow = false;
- rectCreateNow = false;
- lineCreateNow = false;
- colorSelectNow = false;
+  buffer.beginDraw();
+  state = 2;
+  buffer.strokeWeight(strokesize);
+  buffer.stroke(r2, g2, b2, alpha2);
+  circleCreateNow = false;
+  rectCreateNow = false;
+  lineCreateNow = false;
+  colorSelectNow = false;
 
- buffer.endDraw();
+  buffer.endDraw();
 }
 
 void spraypaint() {
@@ -280,7 +279,7 @@ void spraypaint() {
   rectCreateNow = false;
   colorSelectNow = false;
 
-  buffer.stroke(r1,g1,b1,alpha1);
+  buffer.stroke(r1, g1, b1, alpha1);
   buffer.endDraw();
 }
 
@@ -291,10 +290,10 @@ void droplet() {
   circleCreateNow = false;
   rectCreateNow = false;
   colorSelectNow = true;
-  
+
   c = get(mouseX, mouseY);
   buffer.fill(c);
-  
+
   buffer.endDraw();
 }
 
@@ -304,36 +303,39 @@ void textbox() {
   rectCreateNow = false;
   colorSelectNow = false;
   state = 8;
-  
 }
 
 void red1(int theValue) {
- r1 = theValue;
-} void green1(int theValue) {
- g1 = theValue;
-} void blue1(int theValue) {
- b1 = theValue;
+  r1 = theValue;
+} 
+void green1(int theValue) {
+  g1 = theValue;
+} 
+void blue1(int theValue) {
+  b1 = theValue;
 }
 
 void red2(int theValue) {
- r2 = theValue;
-} void green2(int theValue) {
- g2 = theValue;
-} void blue2(int theValue) {
- b2 = theValue;
+  r2 = theValue;
+} 
+void green2(int theValue) {
+  g2 = theValue;
+} 
+void blue2(int theValue) {
+  b2 = theValue;
 }
 
 void thickness(int theValue) {
- strokesize = theValue;
+  strokesize = theValue;
 }
 
 void circle() {
- circleCreateNow = true;
- rectCreateNow = false;
- lineCreateNow = false;
- colorSelectNow = false;
- state = 3;
- ellipseMode(CORNERS);
+  circleCreateNow = true;
+  rectCreateNow = false;
+  lineCreateNow = false;
+  colorSelectNow = false;
+  state = 3;
+  ellipseMode(CORNERS);
 }
 
 void rectangle() {
@@ -355,119 +357,115 @@ void line() {
 
 
 void saveJPG() {  //save image
-  PImage screenshot = get(160,0,940,700);
+  PImage screenshot = get(160, 0, 940, 700);
   screenshot.save("drawings/canvas"+round(random(1000000))+".jpg");
 }
 
 void savePNG() {
-  PImage screenshot = get(160,0,940,700);
+  PImage screenshot = get(160, 0, 940, 700);
   screenshot.save("drawings/canvas"+round(random(1000000))+".png");
 }
 void draw() {
 
- image(buffer, 0, 0);
+  image(buffer, 0, 0);
 
- buffer.beginDraw();
- buffer.stroke(c);
- 
- buffer.rectMode(CORNER);
- buffer.fill(0,0,244); //drawing blue toolbar
- buffer.noStroke();
- buffer.rect(0,0,160,1000); // blue toolbar
- 
- if (mouseX > 160) {
-   buffer.rect(10,510,60,30);
-   buffer.fill(255);
-   buffer.textSize(15);
-   buffer.text(mouseX - 160 +" , "+mouseY, 10,590);
-   }
- 
- buffer.strokeWeight(1);
- buffer.stroke(255);
- 
- buffer.fill(255);
- buffer.rect(5,83,59,16); //color preview 1
- buffer.fill(r1,g1,b1,alpha1);
- buffer.rect(5,83,59,16);
+  buffer.beginDraw();
+  buffer.stroke(c);
 
- buffer.fill(255);
- buffer.rect(5,173,59,16);
- buffer.fill(r2,g2,b2,alpha2); //color preview 2
- buffer.rect(5,173,59,16);
+  buffer.rectMode(CORNER);
+  buffer.fill(0, 0, 244); //drawing blue toolbar
+  buffer.noStroke();
+  buffer.rect(0, 0, 160, 1000); // blue toolbar
 
- buffer.fill(255);
- buffer.rect(13,295,28,28,5); //clear
- 
- buffer.rect(13,328,28,28,5); //jpgsave
- buffer.rect(47,328,28,28,5); //pngsave
+  if (mouseX > 160) {
+    buffer.rect(10, 510, 60, 30);
+    buffer.fill(255);
+    buffer.textSize(15);
+    buffer.text(mouseX - 160 +" , "+mouseY, 10, 590);
+  }
 
- buffer.rect(13,262,28,28,5); //circle
- buffer.rect(47,262,28,28,5); //dropper
- buffer.rect(13,229,28,28,5); //rect
- buffer.rect(47,229,28,28,5); //line
- buffer.rect(13,196,28,28,5); //pencil
- buffer.rect(47,196,28,28,5); //eraser
- buffer.rect(81,196,28,28,5); //spraypaint
- buffer.rect(81,229,28,28,5); //text
+  buffer.strokeWeight(1);
+  buffer.stroke(255);
 
- rectMode(CORNERS);
- buffer.endDraw();
- if (mousePressed && circleCreateNow && mouseX > 160) {
+  buffer.fill(255);
+  buffer.rect(5, 83, 59, 16); //color preview 1
+  buffer.fill(r1, g1, b1, alpha1);
+  buffer.rect(5, 83, 59, 16);
+
+  buffer.fill(255);
+  buffer.rect(5, 173, 59, 16);
+  buffer.fill(r2, g2, b2, alpha2); //color preview 2
+  buffer.rect(5, 173, 59, 16);
+
+  buffer.fill(255);
+  buffer.rect(13, 295, 28, 28, 5); //clear
+
+  buffer.rect(13, 328, 28, 28, 5); //jpgsave
+  buffer.rect(47, 328, 28, 28, 5); //pngsave
+
+  buffer.rect(13, 262, 28, 28, 5); //circle
+  buffer.rect(47, 262, 28, 28, 5); //dropper
+  buffer.rect(13, 229, 28, 28, 5); //rect
+  buffer.rect(47, 229, 28, 28, 5); //line
+  buffer.rect(13, 196, 28, 28, 5); //pencil
+  buffer.rect(47, 196, 28, 28, 5); //eraser
+  buffer.rect(81, 196, 28, 28, 5); //spraypaint
+  buffer.rect(81, 229, 28, 28, 5); //text
+
+  rectMode(CORNERS);
+  buffer.endDraw();
+  if (mousePressed && circleCreateNow && mouseX > 160) {
     strokeWeight(strokesize);
-    stroke(r1,g1,b1,alpha1);
-    fill(r2,g2,b2,alpha2);
-    ellipse(x,y,mouseX, mouseY);
- }
- 
+    stroke(r1, g1, b1, alpha1);
+    fill(r2, g2, b2, alpha2);
+    ellipse(x, y, mouseX, mouseY);
+  }
+
   if (state == 8) {
     fill(0);
     float cursorPosition = textWidth(letters);
     strokeWeight(3);
-    
-    line(cursorPosition+textposX,textposY-(2*strokesize), cursorPosition+textposX,textposY+(2*strokesize)); //cursor for text
-  
-    fill(r1,g1,b1,alpha1);
-    stroke(r1,g1,b1,alpha1);
+
+    line(cursorPosition+textposX, textposY-(2*strokesize), cursorPosition+textposX, textposY+(2*strokesize)); //cursor for text
+
+    fill(r1, g1, b1, alpha1);
+    stroke(r1, g1, b1, alpha1);
     textSize(strokesize * 4);
     text(letters, textposX, textposY); //preview text
-
   }
-  
-  
- if (mousePressed && lineCreateNow && mouseX > 160) {
-   strokeWeight(strokesize);
-   stroke(r1,g1,b1,alpha1);
-   line(x,y,mouseX,mouseY);
- }
- 
+
+
+  if (mousePressed && lineCreateNow && mouseX > 160) {
+    strokeWeight(strokesize);
+    stroke(r1, g1, b1, alpha1);
+    line(x, y, mouseX, mouseY);
+  }
+
   if (mousePressed && rectCreateNow && mouseX > 160) {
     rectMode(CORNERS);
-    stroke(r1,g1,b1,alpha1);
-    fill(r2,g2,b2,alpha2);
+    stroke(r1, g1, b1, alpha1);
+    fill(r2, g2, b2, alpha2);
     strokeWeight(strokesize);
-    rect(x,y,mouseX,mouseY);
+    rect(x, y, mouseX, mouseY);
   }
-  
+
   if (mouseX > 160) {
     if (rectCreateNow || circleCreateNow || lineCreateNow) {
       cursor(CROSS);
-    }
-    else if (colorSelectNow) {
+    } else if (colorSelectNow) {
       cursor(loadImage("icons/dropper.png"));
-    }
-    else if (state == 8) {
+    } else if (state == 8) {
       cursor(TEXT);
     }
-  }
-  else {
+  } else {
     cursor(ARROW);
   }
-  
-   //if (mouseX > 0 && mouseX < 160 && mouseY > 0 && mouseY < 170) {
-     //if (mousePressed) {
-   //  getColor();
-//   }
-// }
+
+  //if (mouseX > 0 && mouseX < 160 && mouseY > 0 && mouseY < 170) {
+  //if (mousePressed) {
+  //  getColor();
+  //   }
+  // }
 }
 
 float textposX;
@@ -480,100 +478,104 @@ void keyPressed() {
     }
   } else if (textWidth(letters+key) < width) {
     if (keyCode != SHIFT && keyCode != ENTER) {
-    letters = letters + key;
+      letters = letters + key;
     } else if (keyCode == ENTER) {
-       buffer.beginDraw();
-       buffer.fill(r1,g1,b1,alpha1);
-       buffer.stroke(r1,g1,b1,alpha1);
-       buffer.textSize(strokesize * 4);
-       buffer.text(letters, textposX, textposY);
-       buffer.endDraw();
-       state = 0;
-       letters = "";
+      buffer.beginDraw();
+      buffer.fill(r1, g1, b1, alpha1);
+      buffer.stroke(r1, g1, b1, alpha1);
+      buffer.textSize(strokesize * 4);
+      buffer.text(letters, textposX, textposY);
+      buffer.endDraw();
+      state = 0;
+      letters = "";
     }
   }
 }
 
 void mousePressed() {
- x = mouseX;
- y = mouseY;
+  x = mouseX;
+  y = mouseY;
 
- if (mouseX > 160) {
-   if (state == 8) {
-     textposX = mouseX;
-     textposY = mouseY;
-   }
-   
-   
-   if (colorSelectNow && mouseButton == LEFT ) {
-     c = get(mouseX, mouseY);
-     r1=(c>>16)&255;
-     g1=(c>>8)&255;
-     b1=c&255; 
-     println("Color 1("+r1+","+g1+","+b1+")");
-     buffer.fill(r1,g1,b1);
+  if (mouseX > 160) {
+    if (state == 8) {
+      textposX = mouseX;
+      textposY = mouseY;
     }
-    
-   if (colorSelectNow && mouseButton == RIGHT ) {
-     c = get(mouseX, mouseY);
-     r2=(c>>16)&255;
-     g2=(c>>8)&255;
-     b2=c&255; 
-//     cp5.getController("r2").setValue(red(c));
-//     cp5.getController("g2").setValue(green(c));
-//     cp5.getController("b2").setValue(blue(c));
 
-     println("Color 2 ("+r2+","+g2+","+b2+")");
-     buffer.fill(r2,g2,b2);
+
+    if (colorSelectNow && mouseButton == LEFT ) {
+      c = get(mouseX, mouseY);
+      float r1=red(c); //need to change to float or type mismatch
+      float g1=green(c);
+      float b1=blue(c); 
+      println("Color 1("+r1+","+g1+","+b1+")");
+      buffer.fill(r1, g1, b1);
+      cp5.getController("red1").setValue(red(c)); //changing bars to match
+      cp5.getController("green1").setValue(green(c));
+      cp5.getController("blue1").setValue(blue(c));
+
+    }
+
+    if (colorSelectNow && mouseButton == RIGHT ) {
+      c = get(mouseX, mouseY);
+      float r2=red(c);
+      float g2=green(c);
+      float b2=blue(c);
+      cp5.getController("red2").setValue(red(c));
+      cp5.getController("green2").setValue(green(c));
+      cp5.getController("blue2").setValue(blue(c));
+
+      println("Color 2 ("+r2+","+g2+","+b2+")");
+      buffer.fill(r2, g2, b2);
     }
   }
 }
 
 void mouseReleased() {
- if (circleCreateNow){
-   buffer.beginDraw();
-   buffer.ellipseMode(CORNERS);
-   buffer.stroke(r1,g1,b1,alpha1);
-   buffer.strokeWeight(strokesize);
-   buffer.fill(r2,g2,b2,alpha2);
-   
-   if (mouseX > 160) {
-     buffer.ellipse(x, y, mouseX, mouseY);
-     }
-   buffer.endDraw();
+  if (circleCreateNow) {
+    buffer.beginDraw();
+    buffer.ellipseMode(CORNERS);
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.strokeWeight(strokesize);
+    buffer.fill(r2, g2, b2, alpha2);
+
+    if (mouseX > 160) {
+      buffer.ellipse(x, y, mouseX, mouseY);
+    }
+    buffer.endDraw();
   }
- 
- if (rectCreateNow) {
-  buffer.beginDraw();
-  buffer.rectMode(CORNERS);
-  buffer.stroke(r1,g1,b1,alpha1);
-  buffer.strokeWeight(strokesize);
-  buffer.fill(r2,g2,b2,alpha2);
-   
-  if (mouseX > 160) {
-    buffer.rect(x, y, mouseX, mouseY);
+
+  if (rectCreateNow) {
+    buffer.beginDraw();
+    buffer.rectMode(CORNERS);
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.strokeWeight(strokesize);
+    buffer.fill(r2, g2, b2, alpha2);
+
+    if (mouseX > 160) {
+      buffer.rect(x, y, mouseX, mouseY);
+    }
   }
- }
   if (lineCreateNow) {
     buffer.beginDraw();
-    buffer.stroke(r1,g1,b1,alpha1);
+    buffer.stroke(r1, g1, b1, alpha1);
     buffer.strokeWeight(strokesize);
-  
+
     if (mouseX > 160) {
       buffer.line(x, y, mouseX, mouseY);
     }
   }
   buffer.endDraw();
- }
+}
 
 void clear() { 
-   buffer.beginDraw();
-   buffer.noStroke();
-   
-   buffer.fill(r2, g2, b2);
-   buffer.rect(160,0,1000, 1000);
-   buffer.endDraw();
-   }
+  buffer.beginDraw();
+  buffer.noStroke();
+
+  buffer.fill(r2, g2, b2);
+  buffer.rect(160, 0, 1000, 1000);
+  buffer.endDraw();
+}
 
 
 
@@ -585,9 +587,9 @@ color getColor() {
  fill(c);
  rect(40,400,40,40);
  return c;
-}
-
-void picker(int x, int y, int state, float step) {
+ }
+ 
+ void picker(int x, int y, int state, float step) {
  noStroke();
  float max = step*16;
  colorMode(HSB, max);
@@ -598,54 +600,52 @@ void picker(int x, int y, int state, float step) {
  {
  for (float h = 0; h < max; h = h + 1) 
  {
-     for(float b= 0; b<max; b = b+1)
-     { if (b < .4*max) {
-       s = b*3;
-     } else {
-       s = max;
-     }
-     stroke(h,  s, max-b);
-     point(h,b);
-     } 
+ for(float b= 0; b<max; b = b+1)
+ { if (b < .4*max) {
+ s = b*3;
+ } else {
+ s = max;
  }
-
+ stroke(h,  s, max-b);
+ point(h,b);
+ } 
+ }
+ 
  for (float i = 0; i < max; i = i + 1) {
-   noStroke();
-   fill(0,0,i);
-   rect(i, max, 1, step);
-
-   } 
-
+ noStroke();
+ fill(0,0,i);
+ rect(i, max, 1, step);
+ 
+ } 
+ 
  }
- /*else {
-   for (float h = 0; h < max; h = h + 1) 
+/*else {
+ for (float h = 0; h < max; h = h + 1) 
  {
-     for(float b= 0; b<max; b = b+1)
-     {
-     if (b < .4*max)
-     {
-       s = b*3;
-     }
-     else {
-       s = max;
-     }
-     fill(h,  s, max-b);
-     if (b%step == 0 && h%step == 0)
-     {
-     stroke(0);
-     rect(x + h, y + b, step, step);
-     //point(x + h, y + b);`
-     }
-     } 
+ for(float b= 0; b<max; b = b+1)
+ {
+ if (b < .4*max)
+ {
+ s = b*3;
+ }
+ else {
+ s = max;
+ }
+ fill(h,  s, max-b);
+ if (b%step == 0 && h%step == 0)
+ {
+ stroke(0);
+ rect(x + h, y + b, step, step);
+ //point(x + h, y + b);`
+ }
+ } 
  } 
  for (float i = 0; i < max; i = i + 1)
  {
-   fill(0,0,i);
-   if (i%step == 0 && i%step == 0)
-   {
-   rect(x+i, y + max + 10, step, step);
-   }
+ fill(0,0,i);
+ if (i%step == 0 && i%step == 0)
+ {
+ rect(x+i, y + max + 10, step, step);
+ }
  }
  } */
-
-  
