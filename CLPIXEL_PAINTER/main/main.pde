@@ -42,7 +42,6 @@ void setup() {
 
   buffer.fill(255);
   buffer.colorMode(RGB);
-  //picker(20,20,0,10);
   rectMode(CORNERS);
 
   buffer.strokeWeight(3);
@@ -114,51 +113,51 @@ void setup() {
     ;
   cp5.addSlider("red1")
     .setPosition(5, toolboxY-190)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(100)
     ;
   cp5.addSlider("green1")
     .setPosition(5, toolboxY-174)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(100)
     ;
   cp5.addSlider("blue1")
     .setPosition(5, toolboxY-158)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(100)
     ; 
   cp5.addSlider("alpha1")
     .setPosition(5, toolboxY-142)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(255)
     ; 
 
   cp5.addSlider("red2")
     .setPosition(5, toolboxY-100)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(255)
     ;
 
   cp5.addSlider("green2")
     .setPosition(5, toolboxY-84)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(255)
     ;
   cp5.addSlider("blue2")
     .setPosition(5, toolboxY-68)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(255)
     ; 
   cp5.addSlider("alpha2")
     .setPosition(5, toolboxY-52)
-    .setSize(60, 15)
+    .setSize(50, 15)
     .setRange(0, 255)
     .setValue(255)
     ;
@@ -412,6 +411,9 @@ void draw() {
   buffer.rect(81, 196, 28, 28, 5); //spraypaint
   buffer.rect(81, 229, 28, 28, 5); //text
 
+
+  picker(92,5,10);
+  picker(92,96,10);
   rectMode(CORNERS);
   buffer.endDraw();
   if (mousePressed && circleCreateNow && mouseX > 160) {
@@ -456,6 +458,8 @@ void draw() {
       cursor(loadImage("icons/dropper.png"));
     } else if (state == 8) {
       cursor(TEXT);
+    } else {
+    cursor(ARROW);
     }
   } else {
     cursor(ARROW);
@@ -495,6 +499,32 @@ void keyPressed() {
 void mousePressed() {
   x = mouseX;
   y = mouseY;
+  
+  if (mouseX > 92 && mouseX < 152) {
+    if (mouseY > 5 && mouseY < 75) { //color 1 picker 
+        c = get(mouseX, mouseY);
+        println(c);
+        float r1=red(c); //need to change to float or type mismatch
+        float g1=green(c);
+        float b1=blue(c); 
+        println("Color 1("+r1+","+g1+","+b1+")");
+        buffer.fill(r1, g1, b1);
+        cp5.getController("red1").setValue(red(c)); //changing bars to match
+        cp5.getController("green1").setValue(green(c));
+        cp5.getController("blue1").setValue(blue(c));
+    } if (mouseY > 96 && mouseY < 166) { //color 2 picker
+        c = get(mouseX, mouseY);
+        println(c);
+        float r2=red(c); //need to change to float or type mismatch
+        float g2=green(c);
+        float b2=blue(c); 
+        println("Color 1("+r2+","+g2+","+b2+")");
+        buffer.fill(r1, g1, b1);
+        cp5.getController("red2").setValue(red(c)); //changing bars to match
+        cp5.getController("green2").setValue(green(c));
+        cp5.getController("blue2").setValue(blue(c));
+    }
+  }
 
   if (mouseX > 160) {
     if (state == 8) {
@@ -578,74 +608,33 @@ void clear() {
 }
 
 
-
-
-/*
-color getColor() {
- color c = get(mouseX, mouseY);
- stroke(c);
- fill(c);
- rect(40,400,40,40);
- return c;
- }
- 
- void picker(int x, int y, int state, float step) {
- noStroke();
- float max = step*16;
- colorMode(HSB, max);
- fill(.6*max);
- noFill();
- float s = 0;
- if (state == 0)
- {
- for (float h = 0; h < max; h = h + 1) 
- {
- for(float b= 0; b<max; b = b+1)
- { if (b < .4*max) {
- s = b*3;
- } else {
- s = max;
- }
- stroke(h,  s, max-b);
- point(h,b);
- } 
- }
- 
- for (float i = 0; i < max; i = i + 1) {
- noStroke();
- fill(0,0,i);
- rect(i, max, 1, step);
- 
- } 
- 
- }
-/*else {
- for (float h = 0; h < max; h = h + 1) 
- {
- for(float b= 0; b<max; b = b+1)
- {
- if (b < .4*max)
- {
- s = b*3;
- }
- else {
- s = max;
- }
- fill(h,  s, max-b);
- if (b%step == 0 && h%step == 0)
- {
- stroke(0);
- rect(x + h, y + b, step, step);
- //point(x + h, y + b);`
- }
- } 
- } 
- for (float i = 0; i < max; i = i + 1)
- {
- fill(0,0,i);
- if (i%step == 0 && i%step == 0)
- {
- rect(x+i, y + max + 10, step, step);
- }
- }
- } */
+void picker(int x, int y, float step) {
+  buffer.beginDraw();
+  float max = step*6;
+  buffer.colorMode(HSB, max);
+  buffer.fill(.6*max);
+  float s = 0;
+    for (float h = 0; h < max; h = h + 1) {
+      for (float b = 5; b<max; b = b+1) {
+        if (b < .4*max) {
+          s = b*3;
+        } else {
+          s = max;
+        }
+          buffer.fill(h, s, max-b);
+        if (b%step == 0 && h%step == 0)
+        {
+          buffer.stroke(0);
+          buffer.rect(x + h, y + b, step, step);
+        }
+      }
+    } 
+    for (float i = 0; i < max; i = i + 1) {
+        buffer.fill(0, 0, i);
+      if (i%step == 0 && i%step == 0) {
+        buffer.rect(x+i, y + max , step, step);
+      }
+    }
+   buffer.colorMode(RGB, 255);
+    buffer.endDraw();
+  }
