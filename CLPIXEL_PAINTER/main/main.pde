@@ -169,7 +169,7 @@ void mouseDragged() {
   if (mouseX > 160 && state == 7) {
     float sprayx;
     float sprayy;
-    float sd = strokesize;
+    float sd = .5*strokesize;
     for (int m = 0; m<100; m++) {
       sprayx=randomGaussian(); 
       sprayy=randomGaussian(); 
@@ -387,14 +387,14 @@ void draw() {
   buffer.stroke(255);
 
   buffer.fill(255);
-  buffer.rect(5, 83, 59, 16); //color preview 1
+  buffer.rect(5, 83, 146, 16); //color preview 1
   buffer.fill(r1, g1, b1, alpha1);
-  buffer.rect(5, 83, 59, 16);
+  buffer.rect(5, 83, 146, 16);
 
   buffer.fill(255);
-  buffer.rect(5, 173, 59, 16);
+  buffer.rect(5, 173, 146, 16);
   buffer.fill(r2, g2, b2, alpha2); //color preview 2
-  buffer.rect(5, 173, 59, 16);
+  buffer.rect(5, 173, 146, 16);
 
   buffer.fill(255);
   buffer.rect(13, 295, 28, 28, 5); //clear
@@ -410,10 +410,13 @@ void draw() {
   buffer.rect(47, 196, 28, 28, 5); //eraser
   buffer.rect(81, 196, 28, 28, 5); //spraypaint
   buffer.rect(81, 229, 28, 28, 5); //text
-
-
+  
   picker(92,5,10);
   picker(92,96,10);
+  buffer.fill(255); 
+  buffer.rect(142,65,10,10); //color correction: adding white to bottom right c1  
+  buffer.rect(142,156,10,10); //"" c2
+    
   rectMode(CORNERS);
   buffer.endDraw();
   if (mousePressed && circleCreateNow && mouseX > 160) {
@@ -612,7 +615,7 @@ void picker(int x, int y, float step) {
   buffer.beginDraw();
   float max = step*6;
   buffer.colorMode(HSB, max);
-  buffer.fill(.6*max);
+  buffer.fill(.9*max);
   float s = 0;
     for (float h = 0; h < max; h = h + 1) {
       for (float b = 5; b<max; b = b+1) {
@@ -621,20 +624,19 @@ void picker(int x, int y, float step) {
         } else {
           s = max;
         }
-          buffer.fill(h, s, max-b);
+        buffer.fill(h, s, max-b+10);
         if (b%step == 0 && h%step == 0)
         {
           buffer.stroke(0);
           buffer.rect(x + h, y + b, step, step);
         }
       }
-    } 
-    for (float i = 0; i < max; i = i + 1) {
+    } for (float i = 0; i < max; i = i + 1) {
         buffer.fill(0, 0, i);
       if (i%step == 0 && i%step == 0) {
         buffer.rect(x+i, y + max , step, step);
       }
     }
-   buffer.colorMode(RGB, 255);
-    buffer.endDraw();
+    buffer.colorMode(RGB, 255);
+
   }
