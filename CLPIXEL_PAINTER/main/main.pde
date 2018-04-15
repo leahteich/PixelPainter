@@ -24,6 +24,10 @@ int strokesize = 3;
 int toolboxY = 205;
 color c;
 
+String letters = ""; //for text tool
+int sizeFont = 20;
+
+
 void setup() {
 
  size(1100, 700);
@@ -35,9 +39,6 @@ void setup() {
  buffer.background(r2,g2,b2); //white by default
 
  buffer.fill(255);
- buffer.textSize(10);
- buffer.text("COLOR 1", 5,10);
- buffer.text("COLOR 2 (ERASER)",5,100); 
  buffer.colorMode(RGB);
  //picker(20,20,0,10);
  rectMode(CORNERS);
@@ -93,7 +94,11 @@ void setup() {
   .setImage(loadImage("icons/save.png"))
   .updateSize();
   ; 
-
+ cp5.addButton("textbox")
+  .setPosition(84, toolboxY+26)
+  .setImage(loadImage("icons/text.png"))
+  .updateSize();
+  ; 
  cp5.addSlider("thickness")
    .setPosition(5, toolboxY+160)
    .setSize(60, 19)
@@ -274,6 +279,15 @@ void droplet() {
   buffer.endDraw();
 }
 
+void textbox() {
+  lineCreateNow = false;
+  circleCreateNow = false;
+  rectCreateNow = false;
+  colorSelectNow = false;
+  state = 8;
+  
+}
+
 void red1(int theValue) {
  r1 = theValue;
 } void green1(int theValue) {
@@ -342,7 +356,7 @@ void draw() {
    buffer.fill(255);
    buffer.textSize(15);
    buffer.text(mouseX - 160 +" , "+mouseY, 10,590);
- }
+   }
  
  buffer.strokeWeight(1);
  buffer.stroke(255);
@@ -362,6 +376,7 @@ void draw() {
  buffer.rect(13,196,28,28,5); //pencil
  buffer.rect(47,196,28,28,5); //eraser
  buffer.rect(81,196,28,28,5); //spraypaint
+ buffer.rect(81,229,28,28,5); //text
 
  rectMode(CORNERS);
  buffer.endDraw();
@@ -372,7 +387,21 @@ void draw() {
     ellipse(x,y,mouseX, mouseY);
  }
  
+  if (state == 8) {
+    fill(0);
+    float cursorPosition = textWidth(letters);
+    strokeWeight(3);
+    
+    line(cursorPosition+textposX,textposY-(2*strokesize), cursorPosition+textposX,textposY+(2*strokesize)); //cursor for text
+  
+    fill(r1,g1,b1);
+    stroke(r1,g1,b1);
+    textSize(strokesize * 4);
+    text(letters, textposX, textposY); //preview text
 
+  }
+  
+  
  if (mousePressed && lineCreateNow && mouseX > 160) {
    strokeWeight(strokesize);
    stroke(r1,g1,b1);
@@ -394,6 +423,9 @@ void draw() {
     else if (colorSelectNow) {
       cursor(HAND);
     }
+    else if (state == 8) {
+      cursor(TEXT);
+    }
   }
   else {
     cursor(ARROW);
@@ -406,12 +438,40 @@ void draw() {
 // }
 }
 
+float textposX;
+float textposY;
+
+void keyPressed() {
+  if (key == BACKSPACE) {
+    if (letters.length() > 0) {
+      letters = letters.substring(0, letters.length()-1);
+    }
+  } else if (textWidth(letters+key) < width) {
+    if (keyCode != SHIFT && keyCode != ENTER) {
+    letters = letters + key;
+    } else if (keyCode == ENTER) {
+       buffer.beginDraw();
+       buffer.fill(r1,g1,b1);
+       buffer.stroke(r1,g1,b1);
+       buffer.textSize(strokesize * 4);
+       buffer.text(letters, textposX, textposY);
+       buffer.endDraw();
+       state = 0;
+       letters = "";
+    }
+  }
+}
+
 void mousePressed() {
  x = mouseX;
  y = mouseY;
- 
- 
+
  if (mouseX > 160) {
+   if (state == 8) {
+     textposX = mouseX;
+     textposY = mouseY;
+   }
+   
    
    if (colorSelectNow && mouseButton == LEFT ) {
      c = get(mouseX, mouseY);
