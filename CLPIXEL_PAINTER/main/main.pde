@@ -1,8 +1,8 @@
-//author of polygon icon: <div>Icons made by <a href="https://www.flaticon.com/authors/yannick" title="Yannick">Yannick</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+//icons from flaticon.com
 
 import controlP5.*;
 PGraphics buffer; 
-//this is a comment
+
 int x; 
 int y;
 
@@ -10,6 +10,8 @@ boolean circleCreateNow = false;
 boolean rectCreateNow = false;
 boolean lineCreateNow = false;
 boolean colorSelectNow = false;
+
+boolean gridshow = false;
 
 ControlP5 cp5; //declaring it up here makes it global
 
@@ -90,9 +92,13 @@ void setup() {
     .updateSize();
   ;
   cp5.addButton("polygon")
-    .setPosition(50, toolboxY+60)
+    .setPosition(49, toolboxY+60)
     .setImage(loadImage("icons/shapes.png"))
     .updateSize();
+  ;
+  cp5.addToggle("gridshow")
+    .setPosition(49, toolboxY+92)
+    .setImage(loadImage("icons/grid.png"))
   ;
   cp5.addButton("droplet")
     .setPosition(85, toolboxY+60)
@@ -286,6 +292,7 @@ void erase() {
   buffer.endDraw();
 }
 
+
 void spraypaint() {
   buffer.beginDraw();
   state = 7;
@@ -330,21 +337,15 @@ void polygon() {
 
 void red1(int theValue) {
   r1 = theValue;
-} 
-void green1(int theValue) {
+} void green1(int theValue) {
   g1 = theValue;
-} 
-void blue1(int theValue) {
+} void blue1(int theValue) {
   b1 = theValue;
-}
-
-void red2(int theValue) {
+} void red2(int theValue) {
   r2 = theValue;
-} 
-void green2(int theValue) {
+}  void green2(int theValue) {
   g2 = theValue;
-} 
-void blue2(int theValue) {
+} void blue2(int theValue) {
   b2 = theValue;
 }
 
@@ -410,6 +411,20 @@ void draw() {
   buffer.strokeWeight(1);
   buffer.stroke(255);
 
+  if (gridshow) {
+    int grid = 20; // change this number to 20 or 50, etc., if you want fewer grid lines
+    for (int i = 160; i < width; i+=grid) {
+      stroke(200);
+      strokeWeight(1);
+      line (i, 0, i, height);
+    }
+    for (int i = 0; i < height; i+=grid) {
+      stroke(200);
+      strokeWeight(1);
+      line (160, i, width, i);
+     }
+    strokeWeight(strokesize);
+  } 
   buffer.fill(255);
   buffer.rect(5, 83, 146, 16); //color preview 1
   buffer.fill(r1, g1, b1, alpha1);
@@ -422,7 +437,7 @@ void draw() {
 
   buffer.fill(255);
   buffer.rect(13, 295, 28, 28, 5); //clear
-
+  buffer.rect(47, 295, 28, 28, 5); //grid
   buffer.rect(13, 328, 28, 28, 5); //jpgsave
   buffer.rect(47, 328, 28, 28, 5); //pngsave
 
@@ -441,6 +456,9 @@ void draw() {
   buffer.fill(255); 
   buffer.rect(142, 65, 10, 10); //color correction: adding white to bottom right c1  
   buffer.rect(142, 156, 10, 10); //"" c2
+
+
+  
 
   rectMode(CORNERS);
   buffer.endDraw();
