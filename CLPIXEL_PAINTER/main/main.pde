@@ -15,10 +15,12 @@ int state = 0; //start on nothing
 int r1 = 100; 
 int g1 = 100; //color 1 settings
 int b1 = 100;
+int alpha1 = 255;
 
 int r2 = 255;
 int g2 = 255; //color2 settings 
 int b2 = 255;
+int alpha2 = 255;
 
 int strokesize = 3;
 int toolboxY = 205;
@@ -123,6 +125,12 @@ void setup() {
    .setRange(0, 255)
    .setValue(100)
    ; 
+ cp5.addSlider("alpha1")
+   .setPosition(5, toolboxY-142)
+   .setSize(60, 15)
+   .setRange(0, 255)
+   .setValue(255)
+   ; 
 
  cp5.addSlider("red2")
    .setPosition(5, toolboxY-100)
@@ -143,6 +151,12 @@ void setup() {
    .setRange(0, 255)
    .setValue(255)
    ; 
+ cp5.addSlider("alpha2")
+   .setPosition(5, toolboxY-52)
+   .setSize(60, 15)
+   .setRange(0, 255)
+   .setValue(255)
+   ; 
 
 }
 
@@ -159,7 +173,7 @@ void mouseDragged() {
         sprayx = sprayx * sd; 
         sprayy = sprayy * sd;
         buffer.beginDraw();
-        buffer.stroke(r1,g1,b1); 
+        buffer.stroke(r1,g1,b1,alpha1); 
         buffer.point(mouseX+sprayx, mouseY+sprayy);
       }
       buffer.endDraw();
@@ -170,7 +184,7 @@ void mouseDragged() {
 
    if (state == 1) {
      buffer.colorMode(RGB);
-     buffer.stroke(r1,g1,b1);
+     buffer.stroke(r1,g1,b1,alpha1);
      buffer.strokeWeight(strokesize);
   
      buffer.endDraw();
@@ -184,7 +198,7 @@ void mouseDragged() {
      
    if (state == 2) {
      buffer.beginDraw();
-     buffer.stroke(r2,g2,b2);
+     buffer.stroke(r2,g2,b2,alpha2);
      buffer.strokeWeight(strokesize);
      if (mouseX > 160 && pmouseX > 160) {
         buffer.line(pmouseX, pmouseY, mouseX, mouseY);
@@ -195,7 +209,7 @@ void mouseDragged() {
    
   if (state == 1 && mouseButton == RIGHT) {
     buffer.beginDraw();
-    buffer.stroke(r2,g2,b2);
+    buffer.stroke(r2,g2,b2,alpha2);
     buffer.strokeWeight(strokesize);
     if (mouseX > 160 && pmouseX > 160) {
        buffer.line(pmouseX, pmouseY, mouseX, mouseY);
@@ -205,23 +219,23 @@ void mouseDragged() {
    
  if (state == 3 || circleCreateNow == true) { //circle draw
    buffer.beginDraw();
-   buffer.stroke(r1,g1,b1);
-   buffer.fill(r2,g2,b2);
+   buffer.stroke(r1,g1,b1,alpha1);
+   buffer.fill(r2,g2,b2,alpha2);
    buffer.strokeWeight(strokesize);
    buffer.endDraw();
  } 
  
  if (rectCreateNow || state == 4) {
    buffer.beginDraw();
-   buffer.stroke(r1,g1,b1);
-   buffer.fill(r2,g2,b2);
+   buffer.stroke(r1,g1,b1,alpha1);
+   buffer.fill(r2,g2,b2,alpha2);
    buffer.strokeWeight(strokesize);
    buffer.endDraw();
  }
  
  if (lineCreateNow || state == 5) {
    buffer.beginDraw();
-   buffer.stroke(r1,g1,b1);
+   buffer.stroke(r1,g1,b1,alpha1);
    buffer.strokeWeight(strokesize);
    buffer.endDraw();
  }
@@ -229,7 +243,7 @@ void mouseDragged() {
 
 void pencil() {
  buffer.beginDraw();
- buffer.stroke(r1,g1,b1);
+ buffer.stroke(r1,g1,b1,alpha1);
  state = 1;
  buffer.strokeWeight(strokesize);
  circleCreateNow = false;
@@ -244,7 +258,7 @@ void erase() {
  buffer.beginDraw();
  state = 2;
  buffer.strokeWeight(strokesize);
- buffer.stroke(r2, g2, b2);
+ buffer.stroke(r2, g2, b2,alpha2);
  circleCreateNow = false;
  rectCreateNow = false;
  lineCreateNow = false;
@@ -261,7 +275,7 @@ void spraypaint() {
   rectCreateNow = false;
   colorSelectNow = false;
 
-  buffer.stroke(r1,g1,b1);
+  buffer.stroke(r1,g1,b1,alpha1);
   buffer.endDraw();
 }
 
@@ -360,10 +374,15 @@ void draw() {
  
  buffer.strokeWeight(1);
  buffer.stroke(255);
- buffer.fill(r1,g1,b1);
+ 
+ buffer.fill(255);
+ buffer.rect(125,30,30,30); //color preview 1
+ buffer.fill(r1,g1,b1,alpha1);
  buffer.rect(125,30,30,30);
 
- buffer.fill(r2,g2,b2);
+ buffer.fill(255);
+ buffer.rect(125,115,30,30);
+ buffer.fill(r2,g2,b2,alpha2); //color preview 2
  buffer.rect(125,115,30,30);
 
  buffer.fill(255);
@@ -382,8 +401,8 @@ void draw() {
  buffer.endDraw();
  if (mousePressed && circleCreateNow && mouseX > 160) {
     strokeWeight(strokesize);
-    stroke(r1,g1,b1);
-    fill(r2,g2,b2);
+    stroke(r1,g1,b1,alpha1);
+    fill(r2,g2,b2,alpha2);
     ellipse(x,y,mouseX, mouseY);
  }
  
@@ -394,8 +413,8 @@ void draw() {
     
     line(cursorPosition+textposX,textposY-(2*strokesize), cursorPosition+textposX,textposY+(2*strokesize)); //cursor for text
   
-    fill(r1,g1,b1);
-    stroke(r1,g1,b1);
+    fill(r1,g1,b1,alpha1);
+    stroke(r1,g1,b1,alpha1);
     textSize(strokesize * 4);
     text(letters, textposX, textposY); //preview text
 
@@ -410,8 +429,8 @@ void draw() {
  
   if (mousePressed && rectCreateNow && mouseX > 160) {
     rectMode(CORNERS);
-    stroke(r1,g1,b1);
-    fill(r2,g2,b2);
+    stroke(r1,g1,b1,alpha1);
+    fill(r2,g2,b2,alpha2);
     strokeWeight(strokesize);
     rect(x,y,mouseX,mouseY);
   }
@@ -451,8 +470,8 @@ void keyPressed() {
     letters = letters + key;
     } else if (keyCode == ENTER) {
        buffer.beginDraw();
-       buffer.fill(r1,g1,b1);
-       buffer.stroke(r1,g1,b1);
+       buffer.fill(r1,g1,b1,alpha1);
+       buffer.stroke(r1,g1,b1,alpha1);
        buffer.textSize(strokesize * 4);
        buffer.text(letters, textposX, textposY);
        buffer.endDraw();
@@ -501,9 +520,9 @@ void mouseReleased() {
  if (circleCreateNow){
    buffer.beginDraw();
    buffer.ellipseMode(CORNERS);
-   buffer.stroke(r1,g1,b1);
+   buffer.stroke(r1,g1,b1,alpha1);
    buffer.strokeWeight(strokesize);
-   buffer.fill(r2,g2,b2);
+   buffer.fill(r2,g2,b2,alpha2);
    
    if (mouseX > 160) {
      buffer.ellipse(x, y, mouseX, mouseY);
@@ -514,9 +533,9 @@ void mouseReleased() {
  if (rectCreateNow) {
   buffer.beginDraw();
   buffer.rectMode(CORNERS);
-  buffer.stroke(r1,g1,b1);
+  buffer.stroke(r1,g1,b1,alpha1);
   buffer.strokeWeight(strokesize);
-  buffer.fill(r2,g2,b2);
+  buffer.fill(r2,g2,b2,alpha2);
    
   if (mouseX > 160) {
     buffer.rect(x, y, mouseX, mouseY);
@@ -524,7 +543,7 @@ void mouseReleased() {
  }
   if (lineCreateNow) {
     buffer.beginDraw();
-    buffer.stroke(r1,g1,b1);
+    buffer.stroke(r1,g1,b1,alpha1);
     buffer.strokeWeight(strokesize);
   
     if (mouseX > 160) {
@@ -534,7 +553,7 @@ void mouseReleased() {
   buffer.endDraw();
  }
 
-void clear() { //doesn't work
+void clear() { 
    buffer.beginDraw();
    buffer.noStroke();
    
