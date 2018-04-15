@@ -91,9 +91,14 @@ void setup() {
    .setImage(loadImage("icons/dropper.png"))
    .updateSize();
    ;
- cp5.addButton("saveImg")
-  .setPosition(50, toolboxY+92)
-  .setImage(loadImage("icons/save.png"))
+ cp5.addButton("saveJPG")
+  .setPosition(15, toolboxY+125)
+  .setImage(loadImage("icons/jpg.png"))
+  .updateSize();
+  ; 
+  cp5.addButton("savePNG")
+  .setPosition(50, toolboxY+125)
+  .setImage(loadImage("icons/png.png"))
   .updateSize();
   ; 
  cp5.addButton("textbox")
@@ -348,15 +353,20 @@ void line() {
   state = 5;
 }
 
-void saveImg() {  //save image
-  save("drawing"+random(1000)+".jpg");
+
+void saveJPG() {  //save image
+  PImage screenshot = get(160,0,940,700);
+  screenshot.save("drawings/canvas"+round(random(1000000))+".jpg");
 }
 
+void savePNG() {
+  PImage screenshot = get(160,0,940,700);
+  screenshot.save("drawings/canvas"+round(random(1000000))+".png");
+}
 void draw() {
 
  image(buffer, 0, 0);
 
- cursor(ARROW);
  buffer.beginDraw();
  buffer.stroke(c);
  
@@ -376,18 +386,21 @@ void draw() {
  buffer.stroke(255);
  
  buffer.fill(255);
- buffer.rect(125,30,30,30); //color preview 1
+ buffer.rect(5,83,59,16); //color preview 1
  buffer.fill(r1,g1,b1,alpha1);
- buffer.rect(125,30,30,30);
+ buffer.rect(5,83,59,16);
 
  buffer.fill(255);
- buffer.rect(125,115,30,30);
+ buffer.rect(5,173,59,16);
  buffer.fill(r2,g2,b2,alpha2); //color preview 2
- buffer.rect(125,115,30,30);
+ buffer.rect(5,173,59,16);
 
  buffer.fill(255);
  buffer.rect(13,295,28,28,5); //clear
- buffer.rect(47,295,28,28,5); //save
+ 
+ buffer.rect(13,328,28,28,5); //jpgsave
+ buffer.rect(47,328,28,28,5); //pngsave
+
  buffer.rect(13,262,28,28,5); //circle
  buffer.rect(47,262,28,28,5); //dropper
  buffer.rect(13,229,28,28,5); //rect
@@ -423,7 +436,7 @@ void draw() {
   
  if (mousePressed && lineCreateNow && mouseX > 160) {
    strokeWeight(strokesize);
-   stroke(r1,g1,b1);
+   stroke(r1,g1,b1,alpha1);
    line(x,y,mouseX,mouseY);
  }
  
