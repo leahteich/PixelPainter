@@ -1,3 +1,5 @@
+//author of polygon icon: <div>Icons made by <a href="https://www.flaticon.com/authors/yannick" title="Yannick">Yannick</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
 import controlP5.*;
 PGraphics buffer; 
 //this is a comment
@@ -29,6 +31,8 @@ color c;
 String letters = ""; //for text tool
 int sizeFont = 20;
 
+float angle; //for polygon tool
+int sides;
 
 void setup() {
 
@@ -85,8 +89,13 @@ void setup() {
     .setImage(loadImage("icons/line.png"))
     .updateSize();
   ;
-  cp5.addButton("droplet")
+  cp5.addButton("polygon")
     .setPosition(50, toolboxY+60)
+    .setImage(loadImage("icons/shapes.png"))
+    .updateSize();
+  ;
+  cp5.addButton("droplet")
+    .setPosition(85, toolboxY+60)
     .setImage(loadImage("icons/dropper.png"))
     .updateSize();
   ;
@@ -242,6 +251,13 @@ void mouseDragged() {
     buffer.strokeWeight(strokesize);
     buffer.endDraw();
   }
+
+  if (state == 9) {
+    buffer.beginDraw();
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.strokeWeight(strokesize);
+    buffer.endDraw();
+  }
 }
 
 void pencil() {
@@ -302,6 +318,14 @@ void textbox() {
   rectCreateNow = false;
   colorSelectNow = false;
   state = 8;
+}
+
+void polygon() {
+  lineCreateNow = false;
+  circleCreateNow = false;
+  rectCreateNow = false;
+  colorSelectNow = false;
+  state = 9;
 }
 
 void red1(int theValue) {
@@ -403,20 +427,21 @@ void draw() {
   buffer.rect(47, 328, 28, 28, 5); //pngsave
 
   buffer.rect(13, 262, 28, 28, 5); //circle
-  buffer.rect(47, 262, 28, 28, 5); //dropper
+  buffer.rect(47, 262, 28, 28, 5); //polygon creator
+  buffer.rect(81, 262, 28, 28, 5); //dropper
   buffer.rect(13, 229, 28, 28, 5); //rect
   buffer.rect(47, 229, 28, 28, 5); //line
   buffer.rect(13, 196, 28, 28, 5); //pencil
   buffer.rect(47, 196, 28, 28, 5); //eraser
   buffer.rect(81, 196, 28, 28, 5); //spraypaint
   buffer.rect(81, 229, 28, 28, 5); //text
-  
-  picker(92,5,10);
-  picker(92,96,10);
+
+  picker(92, 5, 10);
+  picker(92, 96, 10);
   buffer.fill(255); 
-  buffer.rect(142,65,10,10); //color correction: adding white to bottom right c1  
-  buffer.rect(142,156,10,10); //"" c2
-    
+  buffer.rect(142, 65, 10, 10); //color correction: adding white to bottom right c1  
+  buffer.rect(142, 156, 10, 10); //"" c2
+
   rectMode(CORNERS);
   buffer.endDraw();
   if (mousePressed && circleCreateNow && mouseX > 160) {
@@ -437,6 +462,21 @@ void draw() {
     stroke(r1, g1, b1, alpha1);
     textSize(strokesize * 4);
     text(letters, textposX, textposY); //preview text
+  }
+
+  if (mousePressed && state == 9 && mouseX > 160)
+  {
+    stroke(r1, g1, b1, alpha1);
+    fill(r2, g2, b2, alpha2);
+    strokeWeight(strokesize);
+    float angle = TWO_PI / sides;
+    beginShape();
+    for (float a = 0; a < TWO_PI; a += angle) {
+      float sx = x + cos(a) * (mouseX - x);
+      float sy = y + sin(a) * (mouseY - y);
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
   }
 
 
@@ -462,7 +502,7 @@ void draw() {
     } else if (state == 8) {
       cursor(TEXT);
     } else {
-    cursor(ARROW);
+      cursor(ARROW);
     }
   } else {
     cursor(ARROW);
@@ -497,35 +537,61 @@ void keyPressed() {
       letters = "";
     }
   }
+
+  if (state == 9)
+  {
+    if (key == 49) {
+      sides = 1;
+    } else if (key == 50) {
+      sides = 2;
+    } else if (key == 51) {
+      sides = 3;
+    } else if (key == 52) {
+      sides = 4;
+    } else if (key == 53) {
+      sides = 5;
+    } else if (key == 54) {
+      sides = 6;
+    } else if (key == 55) {
+      sides = 7;
+    } else if (key == 56) {
+      sides = 8;
+    } else if (key == 57) {
+      sides = 9;
+    } else {
+      sides = 3;
+    }
+  }
 }
 
 void mousePressed() {
   x = mouseX;
   y = mouseY;
-  
+
   if (mouseX > 92 && mouseX < 152) {
     if (mouseY > 5 && mouseY < 75) { //color 1 picker 
-        c = get(mouseX, mouseY);
-        println(c);
-        float r1=red(c); //need to change to float or type mismatch
-        float g1=green(c);
-        float b1=blue(c); 
-        println("Color 1("+r1+","+g1+","+b1+")");
-        buffer.fill(r1, g1, b1);
-        cp5.getController("red1").setValue(red(c)); //changing bars to match
-        cp5.getController("green1").setValue(green(c));
-        cp5.getController("blue1").setValue(blue(c));
-    } if (mouseY > 96 && mouseY < 166) { //color 2 picker
-        c = get(mouseX, mouseY);
-        println(c);
-        float r2=red(c); //need to change to float or type mismatch
-        float g2=green(c);
-        float b2=blue(c); 
-        println("Color 1("+r2+","+g2+","+b2+")");
-        buffer.fill(r1, g1, b1);
-        cp5.getController("red2").setValue(red(c)); //changing bars to match
-        cp5.getController("green2").setValue(green(c));
-        cp5.getController("blue2").setValue(blue(c));
+      c = get(mouseX, mouseY);
+      println(c);
+      float r1=red(c); //need to change to float or type mismatch
+      float g1=green(c);
+      float b1=blue(c); 
+      println("Color 1("+r1+","+g1+","+b1+")");
+      buffer.fill(r1, g1, b1);
+      cp5.getController("red1").setValue(red(c)); //changing bars to match
+      cp5.getController("green1").setValue(green(c));
+      cp5.getController("blue1").setValue(blue(c));
+    } 
+    if (mouseY > 96 && mouseY < 166) { //color 2 picker
+      c = get(mouseX, mouseY);
+      println(c);
+      float r2=red(c); //need to change to float or type mismatch
+      float g2=green(c);
+      float b2=blue(c); 
+      println("Color 1("+r2+","+g2+","+b2+")");
+      buffer.fill(r1, g1, b1);
+      cp5.getController("red2").setValue(red(c)); //changing bars to match
+      cp5.getController("green2").setValue(green(c));
+      cp5.getController("blue2").setValue(blue(c));
     }
   }
 
@@ -546,7 +612,6 @@ void mousePressed() {
       cp5.getController("red1").setValue(red(c)); //changing bars to match
       cp5.getController("green1").setValue(green(c));
       cp5.getController("blue1").setValue(blue(c));
-
     }
 
     if (colorSelectNow && mouseButton == RIGHT ) {
@@ -598,6 +663,25 @@ void mouseReleased() {
       buffer.line(x, y, mouseX, mouseY);
     }
   }
+  if (state == 9)
+  {
+    buffer.beginDraw();
+    buffer.stroke(r1, g1, b1, alpha1);
+    buffer.strokeWeight(strokesize);
+    buffer.fill(r2, g2, b2, alpha2);
+
+    if (mouseX > 160)
+    {
+      float angle = TWO_PI / sides;
+      buffer.beginShape();
+      for (float a = 0; a < TWO_PI; a += angle) {
+        float sx = x + cos(a) * (mouseX - x);
+        float sy = y + sin(a) * (mouseY - y);
+        buffer.vertex(sx, sy);
+      }
+      buffer.endShape(CLOSE);
+    }
+  }
   buffer.endDraw();
 }
 
@@ -617,26 +701,26 @@ void picker(int x, int y, float step) {
   buffer.colorMode(HSB, max);
   buffer.fill(.9*max);
   float s = 0;
-    for (float h = 0; h < max; h = h + 1) {
-      for (float b = 5; b<max; b = b+1) {
-        if (b < .4*max) {
-          s = b*3;
-        } else {
-          s = max;
-        }
-        buffer.fill(h, s, max-b+10);
-        if (b%step == 0 && h%step == 0)
-        {
-          buffer.stroke(0);
-          buffer.rect(x + h, y + b, step, step);
-        }
+  for (float h = 0; h < max; h = h + 1) {
+    for (float b = 5; b<max; b = b+1) {
+      if (b < .4*max) {
+        s = b*3;
+      } else {
+        s = max;
       }
-    } for (float i = 0; i < max; i = i + 1) {
-        buffer.fill(0, 0, i);
-      if (i%step == 0 && i%step == 0) {
-        buffer.rect(x+i, y + max , step, step);
+      buffer.fill(h, s, max-b+10);
+      if (b%step == 0 && h%step == 0)
+      {
+        buffer.stroke(0);
+        buffer.rect(x + h, y + b, step, step);
       }
     }
-    buffer.colorMode(RGB, 255);
-
+  } 
+  for (float i = 0; i < max; i = i + 1) {
+    buffer.fill(0, 0, i);
+    if (i%step == 0 && i%step == 0) {
+      buffer.rect(x+i, y + max, step, step);
+    }
   }
+  buffer.colorMode(RGB, 255);
+}
