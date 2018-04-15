@@ -421,7 +421,7 @@ void draw() {
       cursor(CROSS);
     }
     else if (colorSelectNow) {
-      cursor(HAND);
+      cursor(loadImage("icons/dropper.png"));
     }
     else if (state == 8) {
       cursor(TEXT);
@@ -487,6 +487,10 @@ void mousePressed() {
      r2=(c>>16)&255;
      g2=(c>>8)&255;
      b2=c&255; 
+//     cp5.getController("r2").setValue(red(c));
+//     cp5.getController("g2").setValue(green(c));
+//     cp5.getController("b2").setValue(blue(c));
+
      println("Color 2 ("+r2+","+g2+","+b2+")");
      buffer.fill(r2,g2,b2);
     }
