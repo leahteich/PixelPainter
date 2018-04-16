@@ -560,24 +560,34 @@ void keyPressed() {
   {
     if (key == 49) {
       sides = 1;
+      letters = "";
     } else if (key == 50) {
       sides = 2;
+      letters = "";
     } else if (key == 51) {
       sides = 3;
+      letters = "";
     } else if (key == 52) {
       sides = 4;
+      letters = "";
     } else if (key == 53) {
       sides = 5;
+      letters = "";
     } else if (key == 54) {
       sides = 6;
+      letters = "";
     } else if (key == 55) {
       sides = 7;
+      letters = "";
     } else if (key == 56) {
       sides = 8;
+      letters = "";
     } else if (key == 57) {
       sides = 9;
+      letters = "";
     } else {
       sides = 3;
+      letters = "";
     }
   }
 }
@@ -593,11 +603,13 @@ void mousePressed() {
       float r1=red(c); //need to change to float or type mismatch
       float g1=green(c);
       float b1=blue(c); 
-      println("Color 1("+r1+","+g1+","+b1+")");
-      buffer.fill(r1, g1, b1);
+      float alpha2 = alpha(c);
+      
+      buffer.fill(r1, g1, b1,alpha2);
       cp5.getController("red1").setValue(red(c)); //changing bars to match
       cp5.getController("green1").setValue(green(c));
       cp5.getController("blue1").setValue(blue(c));
+      cp5.getController("alpha2").setValue(alpha(c));
     } 
     if (mouseY > 96 && mouseY < 166) { //color 2 picker
       c = get(mouseX, mouseY);
@@ -605,11 +617,12 @@ void mousePressed() {
       float r2=red(c); //need to change to float or type mismatch
       float g2=green(c);
       float b2=blue(c); 
-      println("Color 1("+r2+","+g2+","+b2+")");
-      buffer.fill(r1, g1, b1);
+      float alpha2 = alpha(c);
+      buffer.fill(r2, g2, b2,alpha2);
       cp5.getController("red2").setValue(red(c)); //changing bars to match
       cp5.getController("green2").setValue(green(c));
       cp5.getController("blue2").setValue(blue(c));
+      cp5.getController("alpha2").setValue(alpha(c));
     }
   }
 
