@@ -1,10 +1,11 @@
 //icons from flaticon.com
-
+import java.io.File;
 import controlP5.*;
 PGraphics buffer; 
 
 int x; 
 int y;
+PImage img;
 
 boolean circleCreateNow = false;
 boolean rectCreateNow = false;
@@ -99,7 +100,7 @@ void setup() {
   cp5.addToggle("gridshow")
     .setPosition(49, toolboxY+92)
     .setImage(loadImage("icons/grid.png"))
-  ;
+    ;
   cp5.addButton("droplet")
     .setPosition(85, toolboxY+60)
     .setImage(loadImage("icons/dropper.png"))
@@ -176,8 +177,20 @@ void setup() {
     .setRange(0, 255)
     .setValue(255)
     ;
+  cp5.addButton("OPEN")
+    .setPosition(10, toolboxY+200)
+    .setSize(50, 19)
+    .setValue(0)
+    ;
 }
 
+void OPEN() {
+  circleCreateNow = false;
+  rectCreateNow = false;
+  lineCreateNow = false;
+  colorSelectNow = false;
+    selectInput( "Select an image", "imageChosen" );
+}
 
 void mouseDragged() {
 
@@ -337,15 +350,20 @@ void polygon() {
 
 void red1(int theValue) {
   r1 = theValue;
-} void green1(int theValue) {
+} 
+void green1(int theValue) {
   g1 = theValue;
-} void blue1(int theValue) {
+} 
+void blue1(int theValue) {
   b1 = theValue;
-} void red2(int theValue) {
+} 
+void red2(int theValue) {
   r2 = theValue;
-}  void green2(int theValue) {
+}  
+void green2(int theValue) {
   g2 = theValue;
-} void blue2(int theValue) {
+} 
+void blue2(int theValue) {
   b2 = theValue;
 }
 
@@ -389,10 +407,35 @@ void savePNG() {
   PImage screenshot = get(160, 0, 940, 700);
   screenshot.save("drawings/canvas"+round(random(1000000))+".png");
 }
+
+void imageChosen( File f )
+{
+  buffer.beginDraw();
+  if( f.exists() )
+  {
+     String path = f.getAbsolutePath();
+     if (path.endsWith(".jpg") || path.endsWith(".jpeg") 
+     || path.endsWith(".png") || path.endsWith(".gif")) {
+       img = loadImage(path);
+       img.resize(0,height); //0: height is scaled in proportion
+       buffer.image(img, 160,0);
+     }
+     else
+       println("Invald image format. Please try again");
+  }
+    if ( img != null )
+  {
+    buffer.beginDraw();
+    buffer.image(img, 160, 0);
+    buffer.endDraw();
+  }
+  buffer.endDraw();
+}
+
 void draw() {
 
   image(buffer, 0, 0);
-
+  
   buffer.beginDraw();
   buffer.stroke(c);
 
@@ -422,7 +465,7 @@ void draw() {
       stroke(200);
       strokeWeight(1);
       line (160, i, width, i);
-     }
+    }
     strokeWeight(strokesize);
   } 
   buffer.fill(255);
@@ -458,7 +501,7 @@ void draw() {
   buffer.rect(142, 156, 10, 10); //"" c2
 
 
-  
+
 
   rectMode(CORNERS);
   buffer.endDraw();
@@ -604,8 +647,8 @@ void mousePressed() {
       float g1=green(c);
       float b1=blue(c); 
       float alpha2 = alpha(c);
-      
-      buffer.fill(r1, g1, b1,alpha2);
+
+      buffer.fill(r1, g1, b1, alpha2);
       cp5.getController("red1").setValue(red(c)); //changing bars to match
       cp5.getController("green1").setValue(green(c));
       cp5.getController("blue1").setValue(blue(c));
@@ -618,7 +661,7 @@ void mousePressed() {
       float g2=green(c);
       float b2=blue(c); 
       float alpha2 = alpha(c);
-      buffer.fill(r2, g2, b2,alpha2);
+      buffer.fill(r2, g2, b2, alpha2);
       cp5.getController("red2").setValue(red(c)); //changing bars to match
       cp5.getController("green2").setValue(green(c));
       cp5.getController("blue2").setValue(blue(c));
