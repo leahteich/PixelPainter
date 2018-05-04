@@ -7,7 +7,7 @@ float x = 8;
 float y = 11;
 
 void setup() {
-  size(770,590);
+  size(757,568);
   cp5 = new ControlP5(this);
   
   img = loadImage("Tiger.jpeg");
@@ -26,21 +26,28 @@ void setup() {
    .setRange(0,20)
    .setValue(10)
    ; 
+ cp5.addButton("RESET")
+  .setPosition(10,60)
+  .setSize(100,15)
+  .setValue(10)
+  ; 
    
+image(img,0,0);
 
 }
 
 void DETAIL(float theValue) {
   pixelRound(x,y);
   x = theValue;
-
 }
 
 void SHAPE(float theValue) {
   y =  theValue;
   pixelRound(x,y);
+}
 
-
+void RESET() {
+  image(img,0,0);
 }
 
 void draw() {}
