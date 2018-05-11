@@ -9,7 +9,7 @@ ControlP5 cp5;
 
 void setup() {
   size(640, 360, P3D); 
-  img = loadImage("desktop/moon.jpg");  // Load the image
+  img = loadImage("Tiger.jpeg");  // Load the image
   cp5 = new ControlP5(this);
   columns = img.width / cellsize;  // Calculate # of columns
   rows = img.height / cellsize;  // Calculate # of rows
